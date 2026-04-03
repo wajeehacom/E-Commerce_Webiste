@@ -1,0 +1,72 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<div class="container my-5 py-5 px-4 px-lg-5 shadow-lg text-center" style="background: rgba(0,0,0,0.85); border: 2px solid #dc3545; border-radius: 20px; max-width: 600px;">
+    
+    <div class="mb-4 text-danger">
+        <div class="error-circle shadow">
+            <i class="bi bi-x-lg display-1"></i>
+        </div>
+    </div>
+
+    <h1 class="fw-bold text-uppercase mb-3" style="color: var(--vibe-yellow); letter-spacing: 2px;">
+        Payment Failed
+    </h1>
+    
+    <p class="lead text-white fw-semibold mb-2">Transaction Declined ❌</p>
+    <p class="text-white-50 mb-5 px-md-4 small">
+        Oops! Something went wrong while processing your payment. This could be due to insufficient funds, an expired card, or a temporary connection issue.
+    </p>
+
+    <div class="d-grid gap-3 col-md-10 mx-auto">
+        <a href="{% url 'checkout' %}" class="btn btn-warning btn-lg fw-bold py-3 text-dark rounded-0 shadow btn-retry">
+            <i class="bi bi-arrow-clockwise me-2"></i> RETRY PAYMENT
+        </a>
+        
+        <a href="{% url 'cart_view' %}" class="btn btn-outline-light btn-lg fw-bold py-3 rounded-0 small">
+            RETURN TO CART
+        </a>
+    </div>
+
+    <div class="mt-5 pt-4 border-top border-secondary">
+        <p class="text-white-50 small mb-0">
+            Need help? Contact <span class="text-warning fw-bold">VibeCart Support</span> if this persists.
+        </p>
+    </div>
+</div>
+
+<style>
+    .error-circle {
+        width: 110px;
+        height: 110px;
+        background-color: transparent;
+        border: 4px solid #dc3545;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-8px); }
+        75% { transform: translateX(8px); }
+    }
+
+    .btn-retry:hover {
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
+        transform: scale(1.03);
+        transition: 0.3s;
+    }
+
+    .btn-outline-light:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: white !important;
+    }
+</style>
+{% endblock %}

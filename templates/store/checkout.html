@@ -1,0 +1,140 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="container my-5 px-4 px-lg-5 py-4 shadow-lg" style="background: rgba(0,0,0,0.85); border: 2px solid var(--vibe-yellow); border-radius: 20px;">
+    
+    <h2 class="mb-5 text-center fw-bold text-uppercase" style="color: var(--vibe-yellow); letter-spacing: 2px;">
+        <i class="bi bi-shield-lock-fill me-2"></i> Finalize Your Vibe
+    </h2>
+
+    <div class="row g-5">
+        <div class="col-lg-7">
+            <div class="card border-0 rounded-0" style="background: #000; border: 1px solid rgba(255,234,0,0.3) !important;">
+                <div class="card-header bg-transparent py-3 border-bottom border-warning">
+                    <h5 class="mb-0 fw-bold text-white"><i class="bi bi-geo-alt-fill text-warning me-2"></i>SHIPPING DETAILS</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label class="form-label text-warning small text-uppercase fw-bold">Delivery Address</label>
+                            <textarea 
+                                name="address" 
+                                class="form-control fw-bold border-0" 
+                                rows="4" 
+                                placeholder="Enter your full address here..." 
+                                required
+                                style="resize: none; background: #ffffff; color: #000;"
+                            ></textarea>
+                            <div class="form-text text-white-50 mt-2 small">We currently only ship to verified vibes.</div>
+                        </div>
+
+                        <div class="mb-4">
+                           <label class="form-label fw-bold text-warning text-uppercase small mb-3 d-block">Payment Method</label>
+                            <div class="form-check mb-2">
+                                 <input class="form-check-input" type="radio" name="payment_method" id="cod" value="COD" checked>
+                                  <label class="form-check-label text-white fw-bold" for="cod">Cash on Delivery</label>
+                            </div>
+                            <div class="form-check mb-3">
+                               <input class="form-check-input" type="radio" name="payment_method" id="stripe" value="STRIPE">
+                               <label class="form-check-label text-white fw-bold" for="stripe">Pay Online (Stripe Secure)</label>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-dark border-warning border-1 d-flex align-items-center mb-4" style="background: rgba(255,234,0,0.05);">
+                            <i class="bi bi-info-circle-fill text-warning me-3 h4 mb-0"></i>
+                            <small class="text-white-50">By clicking "Place Order", you agree to VibeCart's premium shipping policies.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning w-100 py-3 fw-bold text-dark btn-place-order">
+                            🚀 CONFIRM & PLACE ORDER
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <a href="{% url 'cart_view' %}" class="text-decoration-none text-warning small fw-bold">
+                    ← EDIT CART
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="sticky-summary">
+                <div class="card border-0 rounded-0" style="background: #000; border: 1px solid var(--vibe-yellow) !important;">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-4 text-warning border-bottom pb-2">ORDER REVIEW</h5>
+                        
+                        <div class="order-items-list mb-4 px-2" style="max-height: 250px; overflow-y: auto;">
+                            {% for item in items %}
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-white rounded-0 p-1 me-3 text-center d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                        <span class="small fw-bold text-dark">{{ item.quantity }}x</span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 small fw-bold text-white">{{ item.product.name }}</h6>
+                                        <small class="text-white-50">${{ item.product.price }} / item</small>
+                                    </div>
+                                </div>
+                                <span class="fw-bold text-warning">${{ item.product.price }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <hr class="border-warning opacity-25">
+                        
+                        <div class="d-flex justify-content-between mb-2 text-white">
+                            <span class="opacity-75 small">SUBTOTAL</span>
+                            <span class="fw-bold">${{ total }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 text-white">
+                            <span class="opacity-75 small">SHIPPING</span>
+                            <span class="text-success fw-bold">FREE</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4 h4 fw-bold p-3 text-dark" style="background: var(--vibe-yellow);">
+                            <span>TOTAL</span>
+                            <span>${{ total }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .sticky-summary {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 100px; 
+        z-index: 10;
+    }
+
+    .form-control::placeholder {
+        color: #999;
+    }
+    
+    .btn-place-order:hover {
+        background-color: #fff !important;
+        border-color: #fff !important;
+        transform: scale(1.02);
+        transition: 0.3s;
+    }
+
+    .form-check-input:checked {
+        background-color: var(--vibe-yellow);
+        border-color: var(--vibe-yellow);
+    }
+
+    .order-items-list::-webkit-scrollbar {
+        width: 4px;
+    }
+    .order-items-list::-webkit-scrollbar-thumb {
+        background: var(--vibe-yellow);
+    }
+</style>
+{% endblock %}

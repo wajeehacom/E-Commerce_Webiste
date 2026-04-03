@@ -1,0 +1,89 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Edit Vibe Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5 py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+      
+      <div class="card shadow-lg border-0 rounded-0 p-4 p-md-5" 
+           style="background: rgba(0,0,0,0.9); border: 2px solid var(--vibe-yellow) !important;">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-uppercase mb-1" style="color: var(--vibe-yellow); letter-spacing: 2px;">
+                <i class="bi bi-person-gear me-2"></i> 
+            </h2>
+            <p class="small text-white-50">Keep your delivery details and contact info up to date.</p>
+        </div>
+        
+        <form method="POST">
+          {% csrf_token %}
+          
+          {% for field in form %}
+          <div class="mb-4">
+            <label class="form-label fw-bold small text-uppercase" style="color: var(--vibe-yellow);">
+                {{ field.label }}
+            </label>
+            
+            {% if field.errors %}
+                <div class="text-danger small mb-1 fw-bold">{{ field.errors }}</div>
+            {% endif %}
+
+            <div class="profile-input-wrapper">
+                {{ field }}
+            </div>
+            
+            {% if field.help_text %}
+                <small class="form-text text-white-50 small">{{ field.help_text }}</small>
+            {% endif %}
+          </div>
+          {% endfor %}
+
+          <button type="submit" class="btn btn-warning w-100 fw-bold py-3 mt-3 shadow btn-vibe-update" 
+                  style="background-color: var(--vibe-yellow); color: #000; border-radius: 0; border: none;">
+            SAVE PROFILE CHANGES
+          </button>
+        </form>
+
+        <div class="text-center mt-4">
+          <a href="{% url 'product_list' %}" class="text-decoration-none small fw-bold" style="color: var(--vibe-yellow); opacity: 0.7;">
+            <i class="bi bi-arrow-left me-1"></i> Return to Store
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+    .profile-input-wrapper input, 
+    .profile-input-wrapper textarea, 
+    .profile-input-wrapper select {
+        display: block;
+        width: 100%;
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.5;
+        color: #000;
+        background-color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+    .profile-input-wrapper input:focus {
+        outline: 3px solid var(--vibe-yellow);
+        box-shadow: 0 0 15px rgba(255, 234, 0, 0.3);
+    }
+    
+    .btn-vibe-update:hover {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        transform: translateY(-3px);
+        transition: 0.3s ease-in-out;
+    }
+</style>
+{% endblock %}

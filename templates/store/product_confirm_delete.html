@@ -1,0 +1,10 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ product.name }}"?</p>
+    <button type="submit">Yes</button>
+</form>
+
+{% endblock %}

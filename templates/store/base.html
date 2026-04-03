@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}VibeCart | Premium Shopping{% endblock %}</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --vibe-yellow: #FFEA00; 
+            --vibe-black: #000000;
+            --vibe-dark: #1a1a1a;
+        }
+
+        body {
+            background-color: #fcfcfc;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--vibe-black) !important;
+            border-bottom: 3px solid var(--vibe-yellow);
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: white !important;
+            font-size: 1.5rem;
+        }
+        .brand-yellow { color: var(--vibe-yellow); }
+        
+        .nav-link {
+            color: #eeeeee !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+        .nav-link:hover {
+            color: var(--vibe-yellow) !important;
+        }
+
+        footer {
+            background-color: var(--vibe-black);
+            color: white;
+            padding: 50px 0 20px 0;
+            margin-top: auto;
+            border-top: 5px solid var(--vibe-yellow);
+        }
+        .footer-link {
+            color: #bbb;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .footer-link:hover {
+            color: var(--vibe-yellow);
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .alert {
+            border-radius: 0;
+            border: none;
+            border-left: 5px solid var(--vibe-yellow);
+            background-color: var(--vibe-black);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'product_list' %}">
+            <i class="bi bi-lightning-charge-fill brand-yellow"></i> VIBE<span class="brand-yellow">CART</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="{% url 'product_list' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'product_list' %}"><i class="bi bi-cart3"></i> Products</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link" href="{% url 'cart_view' %}"><i class="bi bi-cart3"></i> Cart</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link" href="{% url 'my_orders' %}">My Orders</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-yellow" href="#" role="button" data-bs-toggle="dropdown">
+                           Hi, {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link btn btn-outline-warning btn-sm px-3 ms-2" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-warning btn-sm px-3 ms-2 text-dark fw-bold" href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="main-content">
+    {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-dismissible fade show" role="alert">
+                    <i class="bi bi-info-circle me-2"></i> {{ message }}
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5 class="fw-bold brand-yellow mb-3">VIBECART</h5>
+                <p class="small text-secondary">Redefining style and value since 2024. Your ultimate destination for premium vibes and quality essentials.</p>
+                <div class="fs-4">
+                    <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-twitter-x"></i></a>
+                </div>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold text-white mb-3">Quick Links</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="{% url 'product_list' %}" class="footer-link">Shop</a></li>
+                    <li><a href="{% url 'about' %}" class="footer-link">Our Story</a></li>
+                    <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold text-white mb-3">Customer Service</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="{% url 'my_orders' %}" class="footer-link">Order Tracking</a></li>
+                    <li><a href="#" class="footer-link">Shipping Info</a></li>
+                    <li><a href="#" class="footer-link">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold text-white mb-3">Newsletter</h6>
+                <div class="input-group">
+                    <input type="text" class="form-control bg-dark border-0 text-white small" placeholder="Email Address">
+                    <button class="btn btn-warning btn-sm fw-bold">Join</button>
+                </div>
+            </div>
+        </div>
+        <hr class="border-secondary mt-4">
+        <div class="text-center small text-secondary">
+            &copy; 2024 VibeCart. Built for the bold.
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

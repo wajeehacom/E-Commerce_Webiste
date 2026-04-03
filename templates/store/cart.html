@@ -1,0 +1,124 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="container my-5 px-4 px-lg-5 py-4 shadow-lg" style="background: rgba(0,0,0,0.85); border: 2px solid var(--vibe-yellow); border-radius: 20px;">
+    
+    <h2 class="mb-5 text-center fw-bold text-uppercase" style="color: var(--vibe-yellow); letter-spacing: 2px;">
+        <i class="bi bi-cart3 me-2"></i> Your Vibe Cart
+    </h2>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-0 bg-transparent">
+                <div class="card-body p-0">
+                    {% if items %}
+                    <div class="table-responsive">
+                        <table class="table align-middle border-0">
+                            <thead class="small text-uppercase" style="border-bottom: 2px solid var(--vibe-yellow);">
+                                <tr class="text-warning">
+                                    <th scope="col" class="py-3">Product</th>
+                                    <th scope="col" class="text-center py-3">Qty</th>
+                                    <th scope="col" class="text-center py-3">Price</th>
+                                    <th scope="col" class="text-end py-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-white">
+                                {% for item in items %}
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <td class="py-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-white rounded p-1 me-3" style="width: 70px; height: 70px;">
+                                                <img src="{{ item.product.image.url }}" class="img-fluid h-100 w-100" style="object-fit: contain;" alt="{{ item.product.name }}">
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0 fw-bold text-white">{{ item.product.name }}</h6>
+                                                <small class="text-warning fw-bold small">COLOR: {{ item.color|upper }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge px-3 py-2 text-dark bg-white fw-bold border-0">
+                                            {{ item.quantity }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center fw-bold text-white fs-5">${{ item.product.price }}</td>
+                                    <td class="text-end">
+                                        <a href="{% url 'remove_from_cart' item.pk %}" class="btn btn-sm btn-outline-warning rounded-pill px-3" title="Remove Item">
+                                            <i class="bi bi-trash-fill"></i> REMOVE
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="bi bi-cart-x display-1 text-secondary opacity-25"></i>
+                        <p class="text-white h5 mt-3">Your vibe cart is empty.</p>
+                        <a href="{% url 'product_list' %}" class="btn btn-warning mt-4 fw-bold px-4">START SHOPPING</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg rounded-0" style="background: #000; border: 1px solid var(--vibe-yellow) !important;">
+                <div class="card-body p-4 text-white">
+                    <h4 class="fw-bold mb-4 text-warning border-bottom pb-2">SUMMARY</h4>
+                    
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="opacity-75">SUBTOTAL</span>
+                        <span class="fw-bold">${{ total }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="opacity-75">SHIPPING</span>
+                        <span class="text-success fw-bold">FREE</span>
+                    </div>
+                    
+                    <hr class="bg-warning opacity-50 my-4">
+                    
+                    <div class="d-flex justify-content-between mb-4 h4 fw-bold text-warning">
+                        <span>TOTAL</span>
+                        <span>${{ total }}</span>
+                    </div>
+                    
+                    <a href="{% url 'checkout' %}" class="btn btn-warning w-100 py-3 fw-bold text-dark shadow-sm btn-checkout">
+                        PROCEED TO CHECKOUT
+                    </a>
+                    
+                    <div class="text-center mt-4">
+                        <a href="{% url 'product_list' %}" class="text-decoration-none small text-warning fw-bold">
+                            <i class="bi bi-arrow-left me-1"></i> BACK TO STORE
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table {
+        --bs-table-bg: transparent;
+        --bs-table-color: white;
+    }
+    
+    .btn-checkout:hover {
+        background-color: #fff !important;
+        border-color: #fff !important;
+        transform: translateY(-3px);
+        transition: 0.3s;
+    }
+
+    .btn-outline-warning:hover {
+        background-color: var(--vibe-yellow) !important;
+        color: #000 !important;
+    }
+
+    tr {
+        vertical-align: middle;
+    }
+</style>
+{% endblock %}

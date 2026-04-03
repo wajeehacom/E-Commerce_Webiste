@@ -1,0 +1,102 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<div class="container my-5 py-4 px-4 px-lg-5 shadow-lg" style="background: rgba(0,0,0,0.85); border: 2px solid var(--vibe-yellow); border-radius: 20px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            
+            <div class="card border-0 rounded-0 bg-transparent">
+                <div class="card-header bg-transparent py-4 border-bottom border-warning text-center">
+                    <h2 class="fw-bold mb-0 text-uppercase" style="color: var(--vibe-yellow); letter-spacing: 2px;">
+                        <i class="bi bi-clock-history me-2"></i> My Order History
+                    </h2>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0 text-center">
+                            <thead class="small text-uppercase" style="border-bottom: 2px solid rgba(255,234,0,0.3);">
+                                <tr class="text-warning">
+                                    <th class="py-3 fw-bold">Order ID</th>
+                                    <th class="py-3 fw-bold">Status</th>
+                                    <th class="py-3 fw-bold">Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-white">
+                                {% for order in orders %}
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <td class="py-4 fw-bold">
+                                        <span class="text-white-50">#</span>{{ order.id }}
+                                    </td>
+                                    <td>
+                                        {% if order.status == 'Completed' %}
+                                            <span class="badge rounded-pill px-3 py-2 border border-success text-success bg-transparent">
+                                                <i class="bi bi-check-circle-fill me-1"></i> PAID
+                                            </span>
+                                        {% elif order.status == 'Pending' %}
+                                            <span class="badge rounded-pill px-3 py-2 border border-warning text-warning bg-transparent">
+                                                <i class="bi bi-hourglass-split me-1"></i> PENDING
+                                            </span>
+                                        {% else %}
+                                            <span class="badge rounded-pill px-3 py-2 border border-secondary text-secondary bg-transparent">
+                                                {{ order.status|upper }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-4 fw-bold fs-5 text-white">
+                                        ${{ order.total_price }}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="3" class="py-5 text-center">
+                                        <i class="bi bi-cart-x display-1 text-secondary opacity-25"></i>
+                                        <p class="text-white-50 mt-3 mb-4">No vibes found in your history.</p>
+                                        <a href="{% url 'product_list' %}" class="btn btn-warning rounded-0 fw-bold px-4">
+                                            START SHOPPING
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-transparent py-4 text-center border-top border-secondary">
+                    <a href="{% url 'product_list' %}" class="text-decoration-none text-warning fw-bold small">
+                        <i class="bi bi-arrow-left me-1"></i> RETURN TO STORE
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .table {
+        --bs-table-bg: transparent;
+        --bs-table-color: white;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(255, 234, 0, 0.05) !important;
+        transition: 0.3s;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+
+    .table-responsive::-webkit-scrollbar {
+        height: 4px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: var(--vibe-yellow);
+    }
+</style>
+{% endblock %}

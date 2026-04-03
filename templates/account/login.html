@@ -1,0 +1,77 @@
+{% extends 'store/base.html' %}
+
+{% block title %}VibeCart Login{% endblock %}
+
+{% block content %}
+<div class="container mt-5 py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      
+      <div class="card shadow-lg border-0 rounded-0 p-4 p-md-5" 
+           style="background: rgba(0,0,0,0.9); border: 2px solid var(--vibe-yellow) !important;">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-uppercase mb-1" style="color: var(--vibe-yellow); letter-spacing: 2px;">Welcome Back</h2>
+            <p class="small text-white-50">Enter your credentials to access your vibe.</p>
+        </div>
+        
+        <form method="POST">
+          {% csrf_token %}
+          
+          <div class="mb-4">
+            <label for="username" class="form-label fw-bold small text-uppercase" style="color: var(--vibe-yellow);">Username</label>
+            <input type="text" name="username" class="form-control fw-bold border-0" 
+                   placeholder="Enter username" 
+                   style="background: #ffffff; color: #000; height: 50px; border-radius: 5px;" required>
+          </div>
+          
+          <div class="mb-2">
+            <label for="password" class="form-label fw-bold small text-uppercase" style="color: var(--vibe-yellow);">Password</label>
+            <input type="password" name="password" class="form-control fw-bold border-0" 
+                   placeholder="Enter password" 
+                   style="background: #ffffff; color: #000; height: 50px; border-radius: 5px;" required>
+          </div>
+
+          <div class="text-end mb-4">
+            <a href="{% url 'password_reset' %}" class="small text-decoration-none fw-bold" style="color: var(--vibe-yellow); opacity: 0.8;">
+              Forgot Password?
+            </a>
+          </div>
+
+          <button type="submit" class="btn btn-warning w-100 fw-bold py-3 mt-2 shadow btn-vibe-login" 
+                  style="background-color: var(--vibe-yellow); color: #000; border-radius: 0; border: none;">
+            LOGIN TO ACCOUNT
+          </button>
+        </form>
+
+        <div class="text-center mt-4">
+          <p class="small text-white-50 mb-0">
+            New to VibeCart? <a href="{% url 'register' %}" class="fw-bold text-decoration-none" style="color: var(--vibe-yellow);">Register here</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+    .form-control:focus {
+        background-color: #ffffff !important;
+        box-shadow: 0 0 0 0.25rem rgba(255, 234, 0, 0.3) !important;
+        outline: 2px solid var(--vibe-yellow);
+    }
+    
+    .btn-vibe-login:hover {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        transform: translateY(-3px);
+        transition: 0.3s ease-in-out;
+    }
+
+    ::selection {
+        background: var(--vibe-yellow);
+        color: #000;
+    }
+</style>
+{% endblock %}

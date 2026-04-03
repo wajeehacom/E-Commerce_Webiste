@@ -1,0 +1,100 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<div class="container my-5 py-5 px-4 px-lg-5 shadow-lg text-center" style="background: rgba(0,0,0,0.85); border: 2px solid var(--vibe-yellow); border-radius: 20px; max-width: 750px;">
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            
+            <!-- Success Icon with Pulse Animation -->
+            <div class="mb-4">
+                <div class="vibe-success-icon shadow">
+                    <i class="bi bi-check-lg display-1 text-dark"></i>
+                </div>
+            </div>
+
+            <!-- Main Message: High Visibility Yellow/White -->
+            <h1 class="fw-bold text-uppercase mb-3" style="color: var(--vibe-yellow); letter-spacing: 3px;">
+                Order Placed!
+            </h1>
+            
+            <p class="lead text-white fw-semibold mb-2">Vibe Received! ✅</p>
+            <p class="text-white-50 mb-5 px-md-4">
+                Thank you for your purchase. We’ve sent a confirmation email to your inbox. Your premium items are now being prepared for shipment.
+            </p>
+
+            <!-- Action Card: Solid Black with Yellow Border -->
+            <div class="card shadow-lg border-0 rounded-0 mb-4" style="background: #000; border: 1px solid var(--vibe-yellow) !important;">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center justify-content-center mb-3">
+                        <span class="badge rounded-pill px-3 py-2 border border-success text-success bg-transparent small fw-bold">
+                            <i class="bi bi-shield-check me-1"></i> PAYMENT VERIFIED
+                        </span>
+                    </div>
+                    
+                    <p class="small text-white-50 mb-4">
+                        Standard Shipping: Your items will arrive within <strong>3-5 business days</strong>.
+                    </p>
+                    
+                    <div class="d-grid gap-3">
+                        <a href="{% url 'my_orders' %}" class="btn btn-warning btn-lg fw-bold rounded-0 py-3 text-dark btn-vibe-success">
+                            <i class="bi bi-list-ul me-2"></i> VIEW MY ORDERS
+                        </a>
+                        
+                        <a href="{% url 'product_list' %}" class="btn btn-outline-warning rounded-0 py-3 fw-bold">
+                            CONTINUE SHOPPING <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Footer -->
+            <div class="mt-5 pt-3 border-top border-secondary">
+                <p class="text-white-50 small">
+                    Need help with your order? <a href="#" class="text-warning text-decoration-none fw-bold">Contact Support</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Vibe Success Icon Styling */
+    .vibe-success-icon {
+        width: 120px;
+        height: 120px;
+        background: var(--vibe-yellow);
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        border: 4px solid #fff;
+        animation: pulseScale 1.5s infinite;
+    }
+
+    @keyframes pulseScale {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 234, 0, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 234, 0, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 234, 0, 0); }
+    }
+
+    /* Button Hovers */
+    .btn-vibe-success:hover {
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
+        transform: translateY(-3px);
+        transition: 0.3s;
+    }
+
+    .btn-outline-warning:hover {
+        background-color: var(--vibe-yellow) !important;
+        color: #000 !important;
+    }
+</style>
+
+{% endblock %}

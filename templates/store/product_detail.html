@@ -1,0 +1,84 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="container my-5 p-4 p-lg-5 shadow-lg" style="background: rgba(0,0,0,0.9); border: 2px solid var(--vibe-yellow); border-radius: 20px;">
+    <div class="row g-5 align-items-center">
+        
+        <div class="col-md-6">
+            <div class="p-3 bg-white shadow-sm border border-secondary text-center" style="border-radius: 15px;">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="img-fluid main-product-img" alt="{{ product.name }}" style="max-height: 400px; object-fit: contain;">
+                {% else %}
+                    <div class="py-5 text-muted"><i class="bi bi-image" style="font-size: 4rem;"></i></div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'product_list' %}" style="color: var(--vibe-yellow); font-weight: 900; text-decoration: none;">STORE</a></li>
+                    <li class="breadcrumb-item active text-white fw-bold opacity-75">/ {{ product.category.name|upper }}</li>
+                </ol>
+            </nav>
+
+            <h1 class="display-5 fw-bold mb-3" style="color: var(--vibe-yellow); text-transform: uppercase;">{{ product.name }}</h1>
+            <h2 class="text-white fw-bold mb-4 fs-1 font-monospace">${{ product.price }}</h2>
+            
+            <div class="mb-4">
+                {% if product.stock > 0 %}
+                  <span class="badge bg-success px-4 py-2 rounded-pill fs-6 border border-white">IN STOCK</span>
+                {% else %}
+                  <span class="badge bg-danger px-4 py-2 rounded-pill fs-6 border border-white">OUT OF STOCK</span>
+                {% endif %}
+            </div>
+
+            <p class="text-white mb-5 fs-5" style="line-height: 1.6; border-left: 5px solid var(--vibe-yellow); padding-left: 15px;">
+                {{ product.description }}
+            </p>
+
+            {% if user.is_authenticated and not user.is_staff %}
+            <form method="POST" action="{% url 'add_to_cart' product.pk %}" class="row g-3">
+                {% csrf_token %}
+                <div class="col-sm-6">
+                    <label class="form-label fw-bold text-uppercase" style="color: var(--vibe-yellow);">Quantity</label>
+                    <input type="number" name="quantity" class="form-control fw-bold border-0 text-dark bg-white" value="1" min="1" style="height: 50px;">
+                </div>
+
+                <div class="col-sm-6">
+                    <label class="form-label fw-bold text-uppercase" style="color: var(--vibe-yellow);">Color</label>
+                    <select name="color" class="form-select fw-bold border-0 text-dark bg-white" style="height: 50px;">
+                        <option value="Red">Red</option>
+                        <option value="Black" selected>Black</option>
+                        <option value="Blue">Blue</option>
+                    </select>
+                </div>
+
+                <div class="col-12 mt-4">
+                    <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold py-3 text-dark shadow-sm"
+                            style="background-color: var(--vibe-yellow); border: none;"
+                            {% if product.stock <= 0 %}disabled{% endif %}>
+                        ADD TO VIBECART
+                    </button>
+                </div>
+            </form>
+
+            {% elif not user.is_authenticated %}
+            <div class="p-4 text-center border border-warning" style="background: rgba(255, 234, 0, 0.05); border-radius: 15px;">
+                <p class="text-white fw-bold mb-3">Want to buy this item?</p>
+                <a href="{% url 'login' %}" class="btn btn-warning btn-lg w-100 fw-bold py-3 text-dark shadow">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> LOGIN TO VIBE & BUY
+                </a>
+            </div>
+            {% endif %}
+
+            {% if user.is_staff %}
+            <div class="mt-5 pt-4 border-top border-secondary d-flex gap-3">
+                <a href="{% url 'product_update' product.pk %}" class="btn btn-outline-warning fw-bold px-4">EDIT</a>
+                <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger fw-bold px-4 text-white">DELETE</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

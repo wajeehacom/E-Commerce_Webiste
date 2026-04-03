@@ -1,0 +1,139 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+    :root {
+        --vibe-yellow: #FFD700; 
+        --vibe-black: #000000;  
+        --vibe-dark-grey: #121212;
+    }
+
+    .bg-vibe-black { background-color: var(--vibe-black); }
+    .text-vibe-yellow { color: var(--vibe-yellow); }
+    .border-vibe-yellow { border-color: var(--vibe-yellow) !important; }
+    
+    .about-hero {
+        background-color: var(--vibe-black);
+        padding: 120px 0 80px 0;
+        border-bottom: 5px solid var(--vibe-yellow);
+    }
+
+    .vibe-card {
+        background: white;
+        border: 1px solid #eee;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-radius: 0;
+    }
+
+    .vibe-card:hover {
+        background-color: var(--vibe-yellow);
+        transform: translateY(-12px);
+        border-color: var(--vibe-black);
+    }
+
+    .btn-vibe {
+        background-color: var(--vibe-yellow);
+        color: var(--vibe-black);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 0;
+    }
+
+    .btn-vibe:hover {
+        background-color: #000;
+        color: var(--vibe-yellow);
+        box-shadow: 5px 5px 0px var(--vibe-yellow);
+    }
+
+    .brand-accent {
+        font-family: 'Arial Black', sans-serif;
+        text-transform: uppercase;
+    }
+</style>
+
+
+<section class="about-hero text-white text-center">
+    <div class="container">
+        <h1 class="display-2 fw-bolder brand-accent mb-3">VIBE<span class="text-vibe-yellow">CART</span></h1>
+        <p class="lead mx-auto text-secondary mb-5" style="max-width: 700px;">
+            Match your lifestyle with the perfect vibe. We curate high-quality essentials designed for the modern trendsetter.
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'product_list' %}" class="btn btn-vibe">Start Vibi'n</a>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-5" style="margin-top: -40px;">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card vibe-card h-100 p-5 text-center shadow">
+                    <i class="bi bi-stars fs-1 mb-3"></i>
+                    <h3 class="fw-bold">Premium Vibe</h3>
+                    <p class="text-muted mb-0">We don't just sell products; we sell an experience. Every item is handpicked for quality.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card vibe-card h-100 p-5 text-center shadow bg-vibe-black text-white border-vibe-yellow">
+                    <i class="bi bi-shield-check text-vibe-yellow fs-1 mb-3"></i>
+                    <h3 class="fw-bold">Secure Cart</h3>
+                    <p class="text-secondary mb-0">Shop with confidence. Our Stripe-integrated checkout keeps your data 100% encrypted.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card vibe-card h-100 p-5 text-center shadow">
+                    <i class="bi bi-truck fs-1 mb-3"></i>
+                    <h3 class="fw-bold">Fast Lane</h3>
+                    <p class="text-muted mb-0">Swift processing and real-time tracking so your vibe reaches you without the wait.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 my-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="p-5 bg-vibe-black text-white position-relative">
+                    <h2 class="display-5 fw-bold mb-4">Why <span class="text-vibe-yellow">VibeCart?</span></h2>
+                    <p class="fs-5 text-secondary">
+                        VibeCart was built for those who value both aesthetics and functionality. We believe shopping should be seamless, secure, and stylish. 
+                    </p>
+                    <ul class="list-unstyled mt-4">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-vibe-yellow me-2"></i> Verified Quality Standards</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-vibe-yellow me-2"></i> 24/7 Customer Support Vibe</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-vibe-yellow me-2"></i> Easy Returns & Refunds</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 ps-md-5">
+                <div class="border-start border-5 border-vibe-yellow ps-4">
+                    <h4 class="fw-bold text-uppercase small text-muted">Our Vision</h4>
+                    <p class="display-6 fw-bold">To be the #1 destination for the world's most <span class="text-vibe-yellow bg-black px-2">vibrant</span> shoppers.</p>
+                </div>
+                <div class="mt-5">
+                    <p class="text-muted">Whether you're looking for everyday essentials or unique statement pieces, VibeCart ensures a premium journey from browsing to unboxing.</p>
+                    <hr class="w-25">
+                    <p class="fw-bold">CEO, VibeCart Team</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-vibe-black">
+    <div class="container text-center py-4">
+        <h2 class="text-white fw-bold display-5 mb-4">Ready to upgrade your <span class="text-vibe-yellow">Vibe?</span></h2>
+        <a href="{% url 'product_list' %}" class="btn btn-vibe btn-lg">Explore Collection</a>
+    </div>
+</section>
+
+{% endblock %}

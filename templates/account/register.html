@@ -1,0 +1,85 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Join VibeCart{% endblock %}
+
+{% block content %}
+<div class="container mt-5 py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+      
+      <div class="card shadow-lg border-0 rounded-0 p-4 p-md-5" 
+           style="background: rgba(0,0,0,0.9); border: 2px solid var(--vibe-yellow) !important;">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-uppercase mb-1" style="color: var(--vibe-yellow); letter-spacing: 2px;">Create Account</h2>
+            <p class="small text-white-50">Join the vibe and start shopping today.</p>
+        </div>
+        
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          
+          {% for field in user_form %}
+          <div class="mb-3">
+            <label class="form-label fw-bold small text-uppercase" style="color: var(--vibe-yellow);">{{ field.label }}</label>
+            <div class="text-danger small mb-1">{{ field.errors }}</div>
+            <input type="{{ field.field.widget.input_type }}" 
+                   name="{{ field.name }}" 
+                   class="form-control fw-bold border-0" 
+                   placeholder="Enter {{ field.label|lower }}"
+                   style="background: #ffffff; color: #000; height: 45px; border-radius: 5px;"
+                   required>
+          </div>
+          {% endfor %}
+
+          {% for field in profile_form %}
+          <div class="mb-3">
+            <label class="form-label fw-bold small text-uppercase" style="color: var(--vibe-yellow);">{{ field.label }}</label>
+            <div class="text-danger small mb-1">{{ field.errors }}</div>
+            
+            {% if field.name == 'address' %}
+                <textarea name="{{ field.name }}" class="form-control fw-bold border-0" rows="2" 
+                          style="background: #ffffff; color: #000; border-radius: 5px;"></textarea>
+            {% else %}
+                <input type="{{ field.field.widget.input_type }}" 
+                       name="{{ field.name }}" 
+                       class="form-control fw-bold border-0" 
+                       style="background: #ffffff; color: #000; height: 45px; border-radius: 5px;">
+            {% endif %}
+          </div>
+          {% endfor %}
+
+          <button type="submit" class="btn btn-warning w-100 fw-bold py-3 mt-4 shadow btn-vibe-reg" 
+                  style="background-color: var(--vibe-yellow); color: #000; border-radius: 0; border: none;">
+            SIGN UP NOW
+          </button>
+        </form>
+
+        <div class="text-center mt-4">
+          <p class="small text-white-50 mb-0">
+            Already a member? <a href="{% url 'login' %}" class="fw-bold text-decoration-none" style="color: var(--vibe-yellow);">Login here</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+    .form-control:focus {
+        background-color: #fff !important;
+        box-shadow: 0 0 0 0.25rem rgba(255, 234, 0, 0.25) !important;
+        outline: 2px solid var(--vibe-yellow);
+    }
+    
+    .btn-vibe-reg:hover {
+        background-color: #fff !important;
+        color: #000 !important;
+        transform: translateY(-3px);
+        transition: 0.3s;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: var(--vibe-yellow); }
+</style>
+{% endblock %}
