@@ -14,12 +14,8 @@ VibeCart is a full-stack E-Commerce web application built with **Django**. It fe
 ## 🛠️ Tech Stack
 
 - **Backend**: Python & Django
-- **Frontend**: HTML5, CSS3, JavaScript, Bootstrap 5
+- **Frontend**: HTML5, CSS3, Bootstrap 5
 - **Database Architecture**: Django Model Classes
 - **APIs**: Stripe (Payments), SendGrid (Email)
 
-## ⚙️ Setup & Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com
